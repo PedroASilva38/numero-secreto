@@ -61,6 +61,7 @@ body::before {
     font-weight: 700;
     border: none;
     margin-top: 16px;
+    cursor: pointer;
 }
 
 .container__texto {
@@ -85,4 +86,25 @@ button {
 h2 {
     font-size: 32px;
     font-weight: 400;
+}
+
+.container__input {
+    border-radius: 16px;
+    color: #1875E8;
+    padding: 16px 24px;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 700;
+    border: none;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.container__retorno {
+    flex: flex;
+}
+
+.container__textos {
+    flex: flex;
+    flex-direction: column;
 }

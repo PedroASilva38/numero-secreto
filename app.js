@@ -1,8 +1,49 @@
-alert('Bem vindo ao jogo do número secreto!');
-dificuldade = parseInt(prompt('Para começar, digite um número de 1 a 3 para definir a dificuldade: \n1: Fácil \n2: Médio \n3: Difícil)'));
-let numeroAleatorio = definirNumeroAleatorio(dificuldade);
+const divAplicacao = document.getElementById('info');
+const divRetorno = document.getElementById('retorno');
+let numeroSecreto;
+let chute;
+let min, max;
+let tentativa = 1
 
-function definirNumeroAleatorio(dificuldade){
+function escolherDificuldade() {
+    return /*html*/`
+        <div class="container__texto">
+            <h1>Número</h1>
+            <h1 class="container__texto-azul">Secreto</h1>
+            <h2>Escolha a dificuldade</h2>
+            <button class="container__botao" onclick="definirNumeroSecreto(1)">1: Fácil</button>
+            <button class="container__botao" onclick="definirNumeroSecreto(2)">2: Médio</button>
+            <button class="container__botao"
+            onclick="definirNumeroSecreto(3)">3: Difícil</button>
+        </div>
+    `;
+}
+
+function escolherNumero(min, max) {
+    return /*html*/`
+        <div class="container__texto">
+            <h1>Número</h1>
+            <h1 class="container__texto-azul">Secreto</h1>
+            <h2>Digite um número entre ${min} e ${max}</h2>
+            <form action=""></form>
+            <input type="number" class="container__input" id="chute">
+            <button onclick="chutarNumero()" class="container__botao">chutar</button>
+        </div>
+    `;
+}
+
+function ganhouOJogo() { 
+    return /*html*/`
+        <img src="./img/trophy.png" alt="ícone de um troféu" />
+        <div class="container__texto">
+            <h1>Você <span class="container__texto-azul">acertou!</span></h1>
+            <h2>Você descobriu o número secreto!</h2>
+            <button onclick="iniciarJogo()" class="container__botao">Retornar</button>
+        </div>
+    `;
+}
+
+function definirNumeroSecreto(dificuldade){
     switch (dificuldade){
         case 1:
             min = 1;
@@ -18,20 +59,40 @@ function definirNumeroAleatorio(dificuldade){
             min = -1000;
             max = 1000;
             break;
-
-        default:
-            alert('Digite um número válido (entre 1 e 3)')
     }
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    numeroSecreto = Math.floor(Math.random() * (max - min + 1)) + min;
+    divAplicacao.innerHTML = escolherNumero(min, max);
 }
 
-do {
-    numeroChute = parseInt(prompt('Digite um número'));
-    if (numeroAleatorio > numeroChute) {
-        alert('O número aleatório é maior que o número inserido')
-    } else if (numeroAleatorio < numeroChute) {
-        alert('O número aleatório é menor que o número inserido')
-    } else {
-        break
+function chutarNumero(){
+    chute = parseInt(document.getElementById('chute').value);
+
+    const chuteMenor = /*html*/`
+        <p>O número secreto é maior do que ${chute}</p>
+    `;
+
+    const chuteMaior = /*html*/`
+        <p>O número secreto é menor do que ${chute}</p>
+    `;
+    
+    const tentativas = /*html*/ `
+        <p>Tentativas: ${tentativa}</p>
+    `
+
+    if (chute == numeroSecreto) {
+        divAplicacao.innerHTML = ganhouOJogo() + tentativas;
+        divRetorno.style.display = 'none'
+    } else if (chute > numeroSecreto) {
+        divRetorno.innerHTML = chuteMaior + tentativas;
+    } else if (chute < numeroSecreto) {
+        divRetorno.innerHTML = chuteMenor + tentativas;
     }
-} while (numeroChute !== numeroAleatorio);
+    tentativa++
+
+} 
+
+function iniciarJogo(){
+divAplicacao.innerHTML = escolherDificuldade();
+}
+
+iniciarJogo()
