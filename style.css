@@ -108,3 +108,8 @@ h2 {
     flex: flex;
     flex-direction: column;
 }
+
+.container__botoes {
+    display: flex;
+    gap: 16px;
+}

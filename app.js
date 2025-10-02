@@ -3,7 +3,7 @@ const divRetorno = document.getElementById('retorno');
 let numeroSecreto;
 let chute;
 let min, max;
-let tentativa = 1
+let tentativa = 1;
 
 function escolherDificuldade() {
     return /*html*/`
@@ -25,9 +25,11 @@ function escolherNumero(min, max) {
             <h1>Número</h1>
             <h1 class="container__texto-azul">Secreto</h1>
             <h2>Digite um número entre ${min} e ${max}</h2>
-            <form action=""></form>
             <input type="number" class="container__input" id="chute">
-            <button onclick="chutarNumero()" class="container__botao">chutar</button>
+            <div class="container__botoes">
+                <button onclick="chutarNumero()" class="container__botao">Chutar</button>
+                <button onclick="reiniciarJogo()" class="container__botao">Novo Jogo</button>
+            </div>
         </div>
     `;
 }
@@ -38,7 +40,7 @@ function ganhouOJogo() {
         <div class="container__texto">
             <h1>Você <span class="container__texto-azul">acertou!</span></h1>
             <h2>Você descobriu o número secreto!</h2>
-            <button onclick="iniciarJogo()" class="container__botao">Retornar</button>
+            <button onclick="reiniciarJogo()" class="container__botao">Novo Jogo</button>
         </div>
     `;
 }
@@ -77,7 +79,7 @@ function chutarNumero(){
     
     const tentativas = /*html*/ `
         <p>Tentativas: ${tentativa}</p>
-    `
+    `;
 
     if (chute == numeroSecreto) {
         divAplicacao.innerHTML = ganhouOJogo() + tentativas;
@@ -87,12 +89,13 @@ function chutarNumero(){
     } else if (chute < numeroSecreto) {
         divRetorno.innerHTML = chuteMenor + tentativas;
     }
-    tentativa++
+    tentativa++;
 
-} 
-
-function iniciarJogo(){
-divAplicacao.innerHTML = escolherDificuldade();
 }
 
-iniciarJogo()
+function reiniciarJogo(){
+    divRetorno.innerHTML = '';
+    tentativa = 1;
+    divAplicacao.innerHTML = escolherDificuldade();
+}
+reiniciarJogo();
