@@ -84,13 +84,19 @@ function chutarNumero(){
     if (chute == numeroSecreto) {
         divAplicacao.innerHTML = ganhouOJogo() + tentativas;
         divRetorno.style.display = 'none'
-    } else if (chute > numeroSecreto) {
+    } else {
+        if (chute > numeroSecreto) {
         divRetorno.innerHTML = chuteMaior + tentativas;
-    } else if (chute < numeroSecreto) {
+        } else {
         divRetorno.innerHTML = chuteMenor + tentativas;
+        }
     }
     tentativa++;
+    limparInputs()
+}
 
+function limparInputs() {
+    document.querySelector('input').value = '';
 }
 
 function reiniciarJogo(){
